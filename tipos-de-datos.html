@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de datos</title>
+</head>
+<body>
+    <h1>Nuevos tipos de datos javascript</h1>
+    <script type="text/javascript">
+    
+    const SIMBOLO = Symbol('Ejemplo');
+    const SALUDAR = Symbol('Saludar');
+    
+    const PERSONA = {
+        [SIMBOLO]: "john"
+    }
+
+    console.log(PERSONA);
+
+    PERSONA.SIMBOLO = "JOHN DOE";
+
+    console.log(PERSONA);
+    console.log(PERSONA[SIMBOLO]);
+//Cuando se llama a una funcion se usa corchetes '[ejemplo]' Y LUEGO se usa los parentesis AFUERA '()' 
+    PERSONA[SALUDAR] = function (){
+        console.log(`Hola`);
+    }
+
+PERSONA[SALUDAR]();
+
+for(let propiedad in PERSONA){
+    console.log();
+}
+
+const GETINMA = Object.getOwnPropertySymbols(PERSONA);
+console.log(GETINMA);
+
+console.clear();
+
+//Los constructores Set funcionan para eliminar datos repetidos Ejemplo
+
+let arreglo = ['casa','casa',3,4,5,5,6,6,7,7,7,8,8,8,9,9,9];
+
+let set = new Set(arreglo);
+
+console.log(set);
+
+/*Devuelvoera
+Set(8) {"casa", 3, 4, 5, 6, …}
+[[Entries]]
+0: "casa"
+1: 3
+2: 4
+3: 5
+4: 6
+5: 7
+6: 8
+7: 9
+size: (...)
+__proto__: Set*/
+
+//Los Set contienen un metodo llamado .add() que sirve para añadir datos en el ya nombrado Set
+
+set.add('CASA');
+set.add('CASA');
+
+//Los Set tambien poseen un metodo llamado .size que sirven como un .length
+
+console.log(set.size);
+
+//Recorrer el set de 2 maneras, con un forof y con un forEach
+
+for (let item of set) {
+    
+}
+
+set.forEach(item => {
+    console.log(item);
+});
+
+//Se puede convertir un Set  en un arreglo usando la siguiente syntax (Puedes crear la tuya propia tambien)
+
+let Arr = Array.from(set);
+
+console.log(Arr);
+
+//Aunque no habira mucha diferencia ya que ya era un arreglo, no puedes transformar agua en agua ¿sabes?
+
+//Tambien se puede eliminar valores del Set con el metodo .delete() ´Nota solo funciona cuando es metodo set, cuando es un array se usa .Pop´
+
+set.delete("CASA", [0]);
+console.log(set);
+
+// Otra cosa seria que tambien los sets tienen una propiedad llamada has('Nombre de la cosa a buscar') que sirve para saber si algo se encuentra dentro de el.
+
+console.log(set.has('casa'));
+
+/*Deberia devolver un TRUE en la consola*/
+
+console.clear();
+
+//Datos de tipo map
+
+let mapa = new Map()
+
+mapa.set("nombre", "Andres");
+mapa.set("Apellido", "Rojas");
+
+// Los datos de tipo map contienen los metodos como set que ya vimos y tambien los metodos Get para obtener datos
+
+console.log(mapa.get("nombre"));
+console.log(mapa.get("Apellido"))
+
+//Los metodos get en los objetos primitivos de tipo map sirven para obtener el dato que almacenan
+
+//Los metodos set tambien funcionan para poder restablecer un dato ejemplo: Si el dato era "Andres" con el metodo set le puede poner otro valor "Ezequiel"
+
+
+mapa.set("nombre", "Lex Luthor");
+
+console.log(mapa.get("nombre"));
+
+//El codigo ya pasado devolvera Lex Luthor y ya no sera "Andres"
+
+//devuelve : ['nombre' => 'Lex Luthor', 'Apellido' => 'Rojas']
+
+//Tambien se puede eliminar Nombre y apellido si asi lo deseas con la propiedad Delete()
+
+mapa.delete('Apellido');
+
+console.log(mapa)
+
+//Devolvera Map(1) {"nombre" => "Lex Luthor"}
+
+//Fin de esta parte sobre el mapeo
+
+//Comienzo de la parte de los weaksets
+
+//Los weaksets y weakmaps son objetos que sirven para poder eliminar basura del navegador despues de que ya son usados la syntax es asi
+
+
+let ws = new WeakSet()
+
+let valor1 = {"valor1": 1};
+let valor2 = {"valor2": 2};
+let valor3 = {"valor3": 3};
+
+ws.add(valor1)
+ws.add(valor2)
+ws.add(valor3)
+
+
+console.log(ws);
+
+//Al yo decir add se añaden a una especia de array que cuando este se vuelva nula en algun momento de nuestra aplicacion se eliminaran dando mas memoria y rendimiento
+
+/*setInterval(() => {
+    console.log(ws)
+}, 1000);*/
+
+/*setTimeout(() => {
+    valor1 = null
+    valor2 = null
+    valor3 = null
+}, 5000);
+*/
+
+//Al yo decir que los 3 valores seran nulos estos se eliminan del weakset
+console.clear()
+
+//  Datos iterables : con maneras de poder modificar un dato por medio de otro Ejemplo
+
+//const iterable = [1, 2, 3, 4, 5, 6];
+
+//Accedemos al iterador de nuestra variable iterable
+
+
+//const iterador = iterable[Symbol.iterator]();
+
+//Para acceder al iterable se usa la variable a acceder, se usa corchetes, se usa el dato Symbol.iterator y se cierra con parentesis
+
+//El iterador.next() sirve para acceder a todos y cada uno de los datos de este
+
+//console.log(iterador.next());
+
+//De la siguiente manera podremos acceder a todos los datos de nuestro arreglo automaticamente
+
+//let next = iterador.next()
+
+/*while(!next.done){
+    console.log(next)
+    next = iterador.next();
+}*/
+
+//Generators son lo mismo que los iteradores solo que con funciones utilizan el .next( al igual que los anteriores)
+
+/*function* iterables (){
+    yield "Hola";
+    console.log("Hola de consola");
+    yield "hola2";
+    yield "hola3"
+}
+*/
+/*let iteradtor = iterables()
+
+for (let y of iteradtor) {
+    console.log(y)    
+}*/
+
+/*function cuadrado (valor){
+    return {
+        valor,
+        resultado: valor * valor
+    }
+}
+
+function* generator (){
+    yield cuadrado(4);
+    yield cuadrado(3);
+    yield cuadrado(5);
+    yield cuadrado(6);
+
+}
+
+let confirmador = generator()
+
+for (let integer of confirmador) {
+    console.log(integer.resultado);
+}
+*/
+
+
+//Proxies
+/*
+let objetoliteral = {
+    nombre: "",
+    apellidos: ""
+}
+const manejador = {
+    set(obj, prop, valor){
+        //Podemos añadir una condicional aca!
+        if(Object.keys(obj).indexOf(prop) === -1){
+            console.warn("No se encontro " + prop +  " No existe");
+        }
+        obj[prop] = valor
+    }
+}
+
+const jon = new Proxy(objetoliteral, manejador)
+
+jon.nombre = "Jon"
+jon.apellidos = "Jon2"
+//Se pueden crear nuevas propiedades aca!
+jon.twitter = "@yo"
+
+console.log(jon)
+
+//El valor no va a cambiar PERO porque con configuramos el manejador al colocar el codigo de esa manera en el objeto literal de manejador por el metodo Set(){} le estamos diciendo al manejador que el objeto y la propiedad van a ser igual al valor incrustado
+  */
+    // propiedades dinamicasç
+    /*
+const usuariosObj = {}
+  const usuarios = ["Dross", "Dross2", "Dross3", "Dross4"]
+
+  usuarios.forEach((usuario, index) => usuariosObj['dros numero = ' + index] = usuario)
+  
+  console.log(usuariosObj)
+  
+  
+  */
+  
+  
+  
+  //Objeto THIS : Se refiere a un objeto dentro de su scope. Que es un scope?
+  //Un scope: Una pieza de codigo, las funciones normales utilizan objetos de su propia scope
+  //Mientras que las arrowfunction no estan en el scope
+
+ /* console.log(this)
+
+  this.nombre = "Contexto global";
+
+  console.log(this.nombre);
+  
+  let obj = {
+      nombre: "Contexto Obj",
+      imprimit: function(){
+          console.log(this.nombre)
+      }
+  }
+
+  obj.imprimit()
+*/
+
+//Call, apply y bind apply e lo mimo que call y bind sirve para conectar cosas
+//
+
+this.lugar = "Contexto Global";
+
+function saludar (saludo, aQuien){
+    console.log(`${saludo} ${aQuien} desde el ${this.lugar}`)    
+}
+
+
+const obj = {
+    lugar: "Contexto OBJ"
+}
+
+saludar.call(null, "hola", "mamawebo")
+
+  
+  
+    </script>
+</body>
+</html>
